@@ -35,11 +35,7 @@ public class ContactFormController {
     @PostMapping("/send")
     public String send(ContactForm contactForm, Model model) {
         boolean sendStatus = contactFormService.send(contactForm);
-        if (sendStatus) {
-            return "redirect:/status";
-        } else {
-            return "redirect:/status";
-        }
+        return "redirect:/status";
     }
 
 }
