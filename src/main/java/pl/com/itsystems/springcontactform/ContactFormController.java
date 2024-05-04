@@ -20,22 +20,15 @@ public class ContactFormController {
     }
 
     @GetMapping("/status")
-    public String status(Model model) {
-        boolean sendStatus = contactFormService.getSendStatus();
-        if (sendStatus) {
-            model.addAttribute("message", "Wiadomość wysłana poprawnie.");
-            model.addAttribute("sendStatus", "text-success");
-        } else {
-            model.addAttribute("message", "Wiadomość nie wysłana, podaj poprawny adres e-mail.");
-            model.addAttribute("sendStatus", "text-danger");
-        }
+    public String status(boolean success, Model model) {
+        model.addAttribute("status", success);
         return "status";
     }
 
     @PostMapping("/send")
-    public String send(ContactForm contactForm, Model model) {
+    public String send(ContactForm contactForm) {
         boolean sendStatus = contactFormService.send(contactForm);
-        return "redirect:/status";
+        return "redirect:/status?success=" + sendStatus;
     }
 
 }
